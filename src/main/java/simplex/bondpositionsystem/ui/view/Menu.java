@@ -22,7 +22,7 @@ public class Menu {
     public void unitedMenu() {
         boolean isContinue = true;
         while(isContinue){
-            System.out.println("「１」在庫データの入力\n「２」値洗い\n「３」保有銘柄残高一覧表示\n「０」終了");
+            System.out.println("「1」在庫データの入力\n「2」値洗い\n「3」保有銘柄残高一覧表示\n「0」終了");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             try {
                 String menuSelect = br.readLine();
