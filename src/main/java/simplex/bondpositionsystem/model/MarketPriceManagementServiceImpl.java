@@ -15,14 +15,15 @@ public class MarketPriceManagementServiceImpl implements MarketPriceManagementSe
 
     @Override
     public void registerMarketPrice(String code, String inputMarketPrice) throws UserInputException {
-        if (isNumber(inputMarketPrice)) {
-            BigDecimal marketPrice = new BigDecimal(inputMarketPrice);
-            MarketPrice marketPriceObject = new MarketPrice(code, marketPrice);
-            marketPriceRepository.save(marketPriceObject);
-        } else {
-            String message = "数字を入力してください。";
-            throw new UserInputException(message);
+        if (!isNumber(inputMarketPrice)) {
+            throw new UserInputException("数字を入力してください。");
         }
+        BigDecimal marketPrice = new BigDecimal(inputMarketPrice);
+        if (marketPrice.compareTo(BigDecimal.ZERO) < 0) {
+            throw new UserInputException("時価にマイナスの値は不適切です。");
+        }
+        MarketPrice marketPriceObject = new MarketPrice(code, marketPrice);
+        marketPriceRepository.save(marketPriceObject);
     }
 
     private boolean isNumber(String s) {

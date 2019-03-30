@@ -25,9 +25,7 @@ public class PositionPresentation {
                 //Menuのメソッドを呼ぶのではなくて、このメソッドを抜ければ自然。
                 return;
             } else if (positionMenu.equals("1")) {
-                System.out.println("銘柄コード, 保有数量, 簿価を入力してください。（入力例）100,100,1000");
-
-
+                System.out.println("銘柄コード, 保有数量, 簿価を入力してください。（入力例）001,100,1000");
                 //入力.
                 String text = br.readLine();
                 //Positionの作成はPositionProducerImplのInterfaceに。

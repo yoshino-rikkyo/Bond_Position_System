@@ -21,7 +21,7 @@ public class Menu {
 
     public void unitedMenu() {
         boolean isContinue = true;
-        while(isContinue){
+        while (isContinue) {
             System.out.println("「1」在庫データの入力\n「2」値洗い\n「3」保有銘柄残高一覧表示\n「0」終了");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             try {
@@ -29,13 +29,14 @@ public class Menu {
 
                 if (menuSelect.equals("1")) {
                     positionPresentation.managePosition();
-                }
-                else if (menuSelect.equals("2")) {
+                } else if (menuSelect.equals("2")) {
                     marketPricePresentation.managemeMarketPrice();
                 } else if (menuSelect.equals("3")) {
                     positionViewPresentation.doPresentation();
                 } else if (menuSelect.equals("0")) {
                     isContinue = false;
+                } else {
+                    System.out.println("「1」,「2」,「3」,「0」を入力してください。");
                 }
 
             } catch (IOException e) {

@@ -8,6 +8,4 @@ public interface BondRepository {
     Bond getBond(String code);
 
     List<Bond> getBonds();
-
-    Map<String, Bond> getBondsMap();
 }
