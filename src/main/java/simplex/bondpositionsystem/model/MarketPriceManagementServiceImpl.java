@@ -4,11 +4,9 @@ package simplex.bondpositionsystem.model;
 import java.math.BigDecimal;
 
 public class MarketPriceManagementServiceImpl implements MarketPriceManagementService {
-    private final BondRepository bondRepository;
     private final MarketPriceRepository marketPriceRepository;
 
-    public MarketPriceManagementServiceImpl(BondRepository bondRepository, MarketPriceRepository marketPriceRepository) {
-        this.bondRepository = bondRepository;
+    public MarketPriceManagementServiceImpl(MarketPriceRepository marketPriceRepository) {
         this.marketPriceRepository = marketPriceRepository;
     }
 

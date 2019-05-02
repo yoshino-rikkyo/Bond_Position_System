@@ -20,18 +20,20 @@ public class Main {
         PositionManagementService positionManagementService = new PositionManagementServiceImpl(bondRepository, positionRepository);
 
         //MarketPriceのRepositoryが機能するようになったあと、
-        MarketPriceManagementService marketPriceManagementService = new MarketPriceManagementServiceImpl(bondRepository, marketPriceRepository);
+        MarketPriceManagementService marketPriceManagementService = new MarketPriceManagementServiceImpl(marketPriceRepository);
 
-
-        PositionViewService positionViewService = new PositionViewServiceImpl(bondRepository, positionRepository, marketPriceRepository);
-        PositionViewPresentation positionViewPresentation = new PositionViewPresentation(positionViewService);
-
+        //メニュー①:在庫データ入力
         PositionPresentation positionPresentation = new PositionPresentation(positionManagementService);
+        //メニュー②:値洗い
         MarketPricePresentation marketPricePresentation = new MarketPricePresentation(bondRepository, marketPriceManagementService);
 
+        PositionViewService positionViewService = new PositionViewServiceImpl(bondRepository, positionRepository, marketPriceRepository);
+        //メニュー③:一覧表示
+        PositionViewPresentation positionViewPresentation = new PositionViewPresentation(positionViewService);
+
+        //メニュー全体
         Menu menu = new Menu(positionPresentation, marketPricePresentation, positionViewPresentation);
-
-
+        //始動
         menu.unitedMenu();
     }
 

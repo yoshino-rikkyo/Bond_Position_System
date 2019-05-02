@@ -45,6 +45,7 @@ public class PositionManagementServiceImpl implements PositionManagementService 
                 throw new UserInputException(message);
             }
             Position position = new Position(code, amount, bookValue);
+            //save()で、mapにpositionを追加とファイルへの書き込みが行われる。
             positionRepository.save(position);
             System.out.println("銘柄code："+ code + "の在庫データの入力が完了しました。");
         } else {
@@ -58,6 +59,7 @@ public class PositionManagementServiceImpl implements PositionManagementService 
     public void deletePosition(String code) throws UserInputException {
 
         if (positionRepository.getPositionsMap().containsKey(code)) {
+            //remove()でpositionの削除とファイルの書き込みが行われる。
             positionRepository.remove(code);
         } else {
             String message = "銘柄コードが見つからないため削除できませんでした。";

@@ -1,6 +1,9 @@
 package simplex.bondpositionsystem.model;
 
+import jdk.jfr.Percentage;
+
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Bond {
     private final String code; //Not null
@@ -51,5 +54,24 @@ public class Bond {
     @Override
     public String toString() {
         return String.format("Bond(code=%s,name=%s,rate=%s,maturity=%d,couponCount=%d)", code, name, rate, maturity, couponCount);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(!(obj instanceof Bond)){
+            return false;
+        }
+        Bond objBond = (Bond)obj;
+        if(this.code.equals(objBond.code) && this.name.equals(objBond.name) && this.rate.compareTo(objBond.rate)==0 &&
+                this.maturity == objBond.maturity && this.couponCount == objBond.couponCount){
+            return true;
+        }
+        return false;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code,name, rate, maturity, couponCount);
     }
 }
