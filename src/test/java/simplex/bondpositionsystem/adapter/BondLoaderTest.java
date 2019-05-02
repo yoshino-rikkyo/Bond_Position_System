@@ -7,12 +7,13 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class BondLoaderTest {
 
     @Test
-    public void load() {
+    public void testLoad() {
         Map<String, Bond> bonds = new HashMap<>();
         BigDecimal bd1 = new BigDecimal("2.0");
         bonds.put("001",new Bond("001","toyota",bd1,20251212,2));
@@ -41,7 +42,10 @@ public class BondLoaderTest {
 
 
         BondLoader bondLoader1 = new BondLoader();
-        assertEquals(bonds, bondLoader1.load("src/main/resources/BondData.csv"));
+
+        assertThat(bondLoader1.load("src/main/resources/BondData.csv")).isEqualTo(bonds);
+        //import static org.junit.Assert.*;のときは
+        //assertEquals(bonds, bondLoader1.load("src/main/resources/BondData.csv"));でテストする。
     }
 }
 
