@@ -37,7 +37,7 @@ public class BondRepositoryImplTest {
         >※assertJを使うために、gradleにtestCompile group: 'org.assertj', name: 'assertj-core', version: '3.12.2'を書いた。
          */
         /*
-        >assertThat(bonds.getBonds()).containsExactly(array);のarrayの部分が要素をたくさん入れていくやつ(...)
+        >assertThat(bonds.getBonds()).containsExactly(array);のarrayの部分が要素をたくさん入れていくやつ(...)←可変長引数
         >だから、listはいれられない。
         >でも、配列なら入れられる。
          */
