@@ -7,13 +7,28 @@ import simplex.bondpositionsystem.ui.view.Menu;
 import simplex.bondpositionsystem.ui.view.PositionPresentation;
 import simplex.bondpositionsystem.ui.view.PositionViewPresentation;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-
-
+//src/main/resources内のファイルをコピーしてつかう。
 public class Main {
     public static void main(String[] args) {
+        //BondData.csvは書き変わらないから、コピーなし。
         BondRepository bondRepository = new BondRepositoryImpl();
-        PositionRepository positionRepository = new PositionRepositoryImpl();
+        Path resouce = Paths.get("src/main/resources/PositionData.csv");
+        Path out = Paths.get("work/main/PositionData.csv");
+        try {
+            Files.copy(resouce, out);
+        }catch(IOException e){
+            //エラー時に終了。
+            //RunTimeExceptionをthrowしているってことはお手上げってこと。
+            //だから、RunTimeExceptionをcatchしちゃだめ
+            throw new RuntimeException(e);
+        }
+        //main用のcsvファイルをload()する
+        PositionRepository positionRepository = new PositionRepositoryImpl("work/main/PositionData.csv");
         MarketPriceRepository marketPriceRepository = new MarketPriceRepositoryImpl();
 
         //ここでPositionのオブジェクトが作られ、Repositoryが機能するようになる。

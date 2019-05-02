@@ -1,6 +1,7 @@
 package simplex.bondpositionsystem.model;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Position {
     private final String code;
@@ -37,5 +38,22 @@ public class Position {
     @Override
     public String toString() {
         return String.format("Position(code=%s,amount=%s,bookValue=%s)", code, amount, bookValue);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(!(obj instanceof Position)){
+            return false;
+        }
+        Position position = (Position)obj;
+        if(this.code.equals(position.code) && this.amount.compareTo(position.amount)==0 && this.bookValue.compareTo(position.bookValue) == 0){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(code,amount,bookValue);
     }
 }

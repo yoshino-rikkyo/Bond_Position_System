@@ -18,13 +18,19 @@ import java.util.Map;
 public class PositionRepositoryImpl implements PositionRepository {
 
     private final Map<String, Position> positions;
+    private final String pathFild;
 
-    public PositionRepositoryImpl() {
-        positions = load();
+    public PositionRepositoryImpl(String path) {
+        if(path == null){
+            throw new IllegalArgumentException("pathを指定してください。");
+        }
+        pathFild = path;
+        positions = load(pathFild);
+
     }
 
-    public Map<String, Position> load() {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/resources/PositionData.csv"))) {
+    public Map<String, Position> load(String path) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
             String text;
             Map<String, Position> positions = new HashMap<>();
             while ((text = reader.readLine()) != null) {
@@ -65,7 +71,7 @@ public class PositionRepositoryImpl implements PositionRepository {
         }
 
         //mapの情報をファイルに書き込む
-        saveToFile();
+        saveToFile(pathFild);
 
     }
 
@@ -105,11 +111,11 @@ public class PositionRepositoryImpl implements PositionRepository {
     public void remove(String code){
 
         positions.remove(code);
-        saveToFile();
+        saveToFile(pathFild);
     }
 
-    private void saveToFile(){
-        try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(Paths.get("src/main/resources/PositionData.csv")))) {
+    private void saveToFile(String path){
+        try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(Paths.get(path)))) {
             for (Position p : positions.values()) {
                 //ファイルの更新
                 writer.println(format(p));
