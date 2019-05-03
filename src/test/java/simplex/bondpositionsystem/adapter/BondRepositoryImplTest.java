@@ -41,6 +41,9 @@ public class BondRepositoryImplTest {
         >だから、listはいれられない。
         >でも、配列なら入れられる。
          */
+        /*
+        >containsExactlyは全ての要素が含まれている、かつ、順番も等しい場合。
+         */
         Bond[] array = list.toArray(new Bond[list.size()]);
         assertThat(bonds.getBonds()).containsExactly(array);
 

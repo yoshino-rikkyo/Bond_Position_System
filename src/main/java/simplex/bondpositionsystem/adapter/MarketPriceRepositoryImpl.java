@@ -15,15 +15,19 @@ import java.util.Map;
 public class MarketPriceRepositoryImpl implements MarketPriceRepository {
 
     private final Map<String, MarketPrice> marketPrices;
+    private final String path;
 
-    public MarketPriceRepositoryImpl() {
-
-        marketPrices = load();
+    public MarketPriceRepositoryImpl(String path) {
+        if (path == null) {
+            throw new IllegalArgumentException("Pathを指定してください。");
+        }
+        marketPrices = load(path);
+        this.path = path;
     }
 
 
-    public Map<String, MarketPrice> load() {
-        try (BufferedReader reader = Files.newBufferedReader(Paths.get("src/main/resources/MarketPriceData.csv"))) {
+    public Map<String, MarketPrice> load(String path) {
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(path))) {
             String text;
             Map<String, MarketPrice> marketPrices = new HashMap<>();
             while ((text = reader.readLine()) != null) {
@@ -43,9 +47,11 @@ public class MarketPriceRepositoryImpl implements MarketPriceRepository {
     }
 
     @Override
+    //ui.view(MarketPricePresentation) → model(MarketPriceManagementService ※インターフェイス) → インターフェイスの実装内で呼ばれている。
+    //一回、一回いれていき、mapの情報が更新されていく。(ファイルも毎回書き込む)
     public void save(MarketPrice marketPrice) {
         marketPrices.put(marketPrice.getCode(), marketPrice);
-        try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(Paths.get("src/main/resources/MarketPriceData.csv")))) {
+        try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(Paths.get(path)))) {
             for (MarketPrice m : marketPrices.values()) {
                 //ファイルの更新
                 writer.println(format(m));
@@ -74,5 +80,10 @@ public class MarketPriceRepositoryImpl implements MarketPriceRepository {
     @Override
     public MarketPrice getMarketPrice(String code) {
         return marketPrices.get(code);
+    }
+
+    @Override
+    public Map<String, MarketPrice> getMarketPriceMap() {
+        return marketPrices;
     }
 }

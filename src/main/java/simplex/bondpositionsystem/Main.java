@@ -29,7 +29,7 @@ public class Main {
         }
         //main用のcsvファイルをload()する
         PositionRepository positionRepository = new PositionRepositoryImpl("work/main/PositionData.csv");
-        MarketPriceRepository marketPriceRepository = new MarketPriceRepositoryImpl();
+        MarketPriceRepository marketPriceRepository = new MarketPriceRepositoryImpl("work/main/MarketPriceData.csv");
 
         //ここでPositionのオブジェクトが作られ、Repositoryが機能するようになる。
         PositionManagementService positionManagementService = new PositionManagementServiceImpl(bondRepository, positionRepository);

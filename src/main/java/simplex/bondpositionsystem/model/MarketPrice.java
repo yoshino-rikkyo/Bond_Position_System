@@ -1,6 +1,8 @@
 package simplex.bondpositionsystem.model;
 
 import java.math.BigDecimal;
+import java.util.Objects;
+import java.util.regex.MatchResult;
 
 public class MarketPrice {
     private final String code;
@@ -30,4 +32,23 @@ public class MarketPrice {
     public String toString() {
         return String.format("MarketPrice(code=%s,marketPrice=%s)", code, marketPrice);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof MarketPrice)) {
+            return false;
+        }
+        MarketPrice objMarketPrice = (MarketPrice) obj;
+        if (this.code.equals(objMarketPrice.code) && this.marketPrice.compareTo(objMarketPrice.marketPrice) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, marketPrice);
+    }
+
+
 }
